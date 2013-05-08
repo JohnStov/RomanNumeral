@@ -3,16 +3,25 @@
 using RomanNumeral;
 
 using Xunit;
+using Xunit.Extensions;
 
 namespace RomanNumeralTest
 {
     public class RomanIntTest
     {
-        [Fact]
-        public void OneIsI()
+        [Theory]
+        [InlineData(1, "I")]
+        [InlineData(2, "II")]
+        public void ArabicToRoman(int value, string expected)
         {
-            var num = new RomanInt(1);
-            num.ToString().Should().Be("I");
+            var num = new RomanInt(value);
+            num.ToString().Should().Be(expected);
+        }
+
+        [Fact]
+        public void True()
+        {
+            Assert.True(true);
         }
     }
 }

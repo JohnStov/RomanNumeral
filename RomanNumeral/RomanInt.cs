@@ -11,7 +11,12 @@
 
         public override string ToString()
         {
-            return "I";
+            string result = string.Empty;
+
+            for (int i = 1; i <= value; ++i)
+                result += "I";
+
+            return result;
         }
     }
 }
