@@ -40,11 +40,24 @@ namespace RomanNumeral
         private string NearSignificantValue(int value, string numeral, ref int remainder)
         {
             string result;
-            if (numeral == "X" || numeral =="V")
+            if (numeral == "X" || numeral == "V")
+            {
                 result = remainder == value - 1 ? "I" + numeral : numeral;
+                remainder = Math.Max(remainder - value, 0);
+            }
             else
-                result = remainder == value - 10 ? "X" + numeral : numeral;
-            remainder = Math.Max(remainder - value, 0);
+            {
+                if (remainder >= value)
+                {
+                    result = numeral;
+                    remainder = remainder - value;
+                }
+                else
+                {
+                    result = "X" + numeral;
+                    remainder = remainder - value + 10;
+                }
+            }
             return result;
         }
 
