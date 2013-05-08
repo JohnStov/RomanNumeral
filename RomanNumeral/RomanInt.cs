@@ -20,7 +20,7 @@ namespace RomanNumeral
                 result = NearSignificantValue(10, "X", ref remainder);
 
             if (remainder > 3)
-                result = NearSignificantValue(5, "V", ref remainder);
+                result += NearSignificantValue(5, "V", ref remainder);
 
             result += ThreeOrLess(remainder);
 
