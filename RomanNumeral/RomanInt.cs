@@ -16,25 +16,22 @@ namespace RomanNumeral
             string result = string.Empty;
             int remainder = value;
 
-            if (remainder > 8)
-                result = NearSignificantValue(10, "X", ref remainder);
+            while (remainder > 8)
+                result += NearSignificantValue(10, "X", ref remainder);
 
             if (remainder > 3)
                 result += NearSignificantValue(5, "V", ref remainder);
 
-            result += ThreeOrLess(remainder);
+            while (remainder > 0)
+                result += AppendI(ref remainder);
 
             return result;
         }
 
-        private string ThreeOrLess(int remainder)
+        private string AppendI(ref int remainder)
         {
-            string result = string.Empty;
-            for (int i = 1; i <= remainder; ++i)
-            {
-                result += "I";
-            }
-            return result;
+            --remainder;
+            return "I";
         }
 
         private string NearSignificantValue(int value, string numeral, ref int remainder)

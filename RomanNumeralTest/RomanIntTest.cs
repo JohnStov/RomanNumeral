@@ -18,6 +18,7 @@ namespace RomanNumeralTest
         [InlineData(6, "VI")]
         [InlineData(9, "IX")]
         [InlineData(14, "XIV")]
+        [InlineData(19, "XIX")]
         public void ArabicToRoman(int value, string expected)
         {
             var num = new RomanInt(value);
