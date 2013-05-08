@@ -15,9 +15,12 @@ namespace RomanNumeral
         {
             string result = string.Empty;
             int remainder = value;
-            
-            if (value > 3)
-                result = FourOrFive(ref remainder);
+
+            if (remainder > 8)
+                result = NearSignificantValue(10, "X", ref remainder);
+
+            if (remainder > 3)
+                result = NearSignificantValue(5, "V", ref remainder);
 
             result += ThreeOrLess(remainder);
 
@@ -34,10 +37,10 @@ namespace RomanNumeral
             return result;
         }
 
-        private string FourOrFive(ref int remainder)
+        private string NearSignificantValue(int value, string numeral, ref int remainder)
         {
-            var result = remainder == 4 ? "IV" : "V";
-            remainder = Math.Max(remainder - 5, 0);
+            var result = remainder == value - 1 ? "I" + numeral : numeral;
+            remainder = Math.Max(remainder - value, 0);
             return result;
         }
 
