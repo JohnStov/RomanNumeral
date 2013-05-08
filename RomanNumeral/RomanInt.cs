@@ -16,6 +16,9 @@ namespace RomanNumeral
             string result = string.Empty;
             int remainder = value;
 
+            while (remainder >= 40)
+                result += NearSignificantValue(50, "L", ref remainder);
+
             while (remainder > 8)
                 result += NearSignificantValue(10, "X", ref remainder);
 
@@ -36,7 +39,11 @@ namespace RomanNumeral
 
         private string NearSignificantValue(int value, string numeral, ref int remainder)
         {
-            var result = remainder == value - 1 ? "I" + numeral : numeral;
+            string result;
+            if (numeral == "X" || numeral =="V")
+                result = remainder == value - 1 ? "I" + numeral : numeral;
+            else
+                result = remainder == value - 10 ? "X" + numeral : numeral;
             remainder = Math.Max(remainder - value, 0);
             return result;
         }
