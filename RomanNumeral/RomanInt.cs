@@ -1,4 +1,6 @@
-﻿namespace RomanNumeral
+﻿using System;
+
+namespace RomanNumeral
 {
     public class RomanInt
     {
@@ -11,26 +13,32 @@
 
         public override string ToString()
         {
-            string result;
+            string result = string.Empty;
+            int remainder = value;
+            
+            if (value > 3)
+                result = FourOrFive(ref remainder);
 
-            result = value <= 3 ? ThreeOrLess() : FourOrFive();
+            result += ThreeOrLess(remainder);
 
             return result;
         }
 
-        private string ThreeOrLess()
+        private string ThreeOrLess(int remainder)
         {
             string result = string.Empty;
-            for (int i = 1; i <= value; ++i)
+            for (int i = 1; i <= remainder; ++i)
             {
                 result += "I";
             }
             return result;
         }
 
-        private string FourOrFive()
+        private string FourOrFive(ref int remainder)
         {
-            return value == 4 ? "IV" : "V";
+            var result = remainder == 4 ? "IV" : "V";
+            remainder = Math.Max(remainder - 5, 0);
+            return result;
         }
 
     }
