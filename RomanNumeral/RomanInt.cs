@@ -13,10 +13,7 @@
         {
             string result;
 
-            if (value <= 3)
-                result = ThreeOrLess();
-            else
-                result = Four();
+            result = value <= 3 ? ThreeOrLess() : FourOrFive();
 
             return result;
         }
@@ -31,9 +28,9 @@
             return result;
         }
 
-        private string Four()
+        private string FourOrFive()
         {
-            return "IV";
+            return value == 4 ? "IV" : "V";
         }
 
     }
