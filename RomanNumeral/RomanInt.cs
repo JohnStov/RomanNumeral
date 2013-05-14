@@ -40,10 +40,12 @@ namespace RomanNumeral
 
         private static readonly NumeralInfo[] Numerals =
         {
-            new NumeralInfo(100, 'C', 10, 'X'),             
-            new NumeralInfo( 50, 'L', 10, 'X'),             
-            new NumeralInfo( 10, 'X',  1, 'I'),             
-            new NumeralInfo(  5, 'V',  1, 'I'),             
+            new NumeralInfo(1000, 'M', 100, 'C'),             
+            new NumeralInfo( 500, 'D', 100, 'C'),             
+            new NumeralInfo( 100, 'C',  10, 'X'),             
+            new NumeralInfo(  50, 'L',  10, 'X'),             
+            new NumeralInfo(  10, 'X',   1, 'I'),             
+            new NumeralInfo(   5, 'V',   1, 'I'),             
         };
         
         public override string ToString()

@@ -26,6 +26,8 @@ namespace RomanNumeralTest
         [InlineData(69, "LXIX")]
         [InlineData(89, "LXXXIX")]
         [InlineData(90, "XC")]
+        [InlineData(999, "CMXCIX")]
+        [InlineData(2013, "MMXIII")]
         public void ArabicToRoman(int value, string expected)
         {
             var num = new RomanInt(value);
