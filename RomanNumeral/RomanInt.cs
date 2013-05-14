@@ -71,26 +71,43 @@ namespace RomanNumeral
             return result;
         }
 
-        private static int Parse(string numeral)
+        private static int Parse(string value)
         {
-            int value = 0;
+            int result = 0;
+            int index = 0;
 
-            for (int index = 0; index < numeral.Length; ++index)
+            while (index < value.Length)
+                result += GetDigit(value, ref index);
+
+            return result;
+        }
+
+        private static int GetDigit(string value, ref int index)
+        {
+            char? next = Lookahead(value, index);
+
+            foreach (var numeral in Numerals)
             {
-                if (numeral[index] == 'I')
+                if (value[index] == numeral.PrefixDigit && next.HasValue && next.Value == numeral.Digit)
                 {
-                    var next = Lookahead(numeral, index);
-                    if (next.HasValue && next.Value == 'V')
-                    {
-                        value += 4;
-                        ++index;
-                    }
-                    else
-                        value += 1;
+                    index += 2;
+                    return numeral.Value - numeral.PrefixValue;
+                }
+
+                if (value[index] == numeral.Digit)
+                {
+                    ++index;
+                    return numeral.Value;
                 }
             }
 
-            return value;
+            if (value[index] == 'I')
+            {
+                ++index;
+                return 1;
+            }
+
+            return 0;
         }
 
         private static char? Lookahead(string numeral, int index)
