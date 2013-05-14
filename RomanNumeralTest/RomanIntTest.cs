@@ -37,6 +37,8 @@ namespace RomanNumeralTest
         [Theory]
         [InlineData(1, "I")]
         [InlineData(2, "II")]
+        [InlineData(3, "III")]
+        [InlineData(4, "IV")]
         public void RomanToArabic(int expected, string numeral)
         {
             var num = new RomanInt(numeral);

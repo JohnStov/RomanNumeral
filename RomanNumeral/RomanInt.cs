@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 
 namespace RomanNumeral
 {
@@ -72,7 +73,29 @@ namespace RomanNumeral
 
         private static int Parse(string numeral)
         {
-            return numeral.Count(digit => digit == 'I');
+            int value = 0;
+
+            for (int index = 0; index < numeral.Length; ++index)
+            {
+                if (numeral[index] == 'I')
+                {
+                    var next = Lookahead(numeral, index);
+                    if (next.HasValue && next.Value == 'V')
+                    {
+                        value += 4;
+                        ++index;
+                    }
+                    else
+                        value += 1;
+                }
+            }
+
+            return value;
+        }
+
+        private static char? Lookahead(string numeral, int index)
+        {
+            return index + 1 < numeral.Length ? numeral[index + 1] : new char?();
         }
 
         private string AppendI(ref int remainder)
