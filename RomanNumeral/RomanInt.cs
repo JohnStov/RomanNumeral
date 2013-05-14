@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace RomanNumeral
 {
@@ -71,7 +72,7 @@ namespace RomanNumeral
 
         private static int Parse(string numeral)
         {
-            return 1;
+            return numeral.Count(digit => digit == 'I');
         }
 
         private string AppendI(ref int remainder)
