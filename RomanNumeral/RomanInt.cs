@@ -5,8 +5,6 @@ namespace RomanNumeral
 {
     public class RomanInt
     {
-        private readonly int value;
-
         private Dictionary<int, string> digits = new Dictionary<int, string>
         {
             {100, "C"},
@@ -18,11 +16,15 @@ namespace RomanNumeral
 
         public RomanInt(int value)
         {
-            this.value = value;
+            Value = value;
         }
 
-        
-        public class NumeralInfo
+        public RomanInt(string numeral)
+        {
+            Value = Parse(numeral);
+        }
+
+        private class NumeralInfo
         {
             public NumeralInfo(int value, char digit, int prefixValue, char prefixDigit)
             {
@@ -47,11 +49,13 @@ namespace RomanNumeral
             new NumeralInfo(  10, 'X',   1, 'I'),             
             new NumeralInfo(   5, 'V',   1, 'I'),             
         };
-        
+
+        public int Value { get; private set; }
+
         public override string ToString()
         {
             string result = string.Empty;
-            int remainder = value;
+            int remainder = Value;
 
             foreach (var numeral in Numerals)
             {
@@ -63,6 +67,11 @@ namespace RomanNumeral
                 result += AppendI(ref remainder);
 
             return result;
+        }
+
+        private static int Parse(string numeral)
+        {
+            return 1;
         }
 
         private string AppendI(ref int remainder)

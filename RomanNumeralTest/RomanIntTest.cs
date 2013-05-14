@@ -34,6 +34,14 @@ namespace RomanNumeralTest
             num.ToString().Should().Be(expected);
         }
 
+        [Theory]
+        [InlineData(1, "I")]
+        public void RomanToArabic(int expected, string numeral)
+        {
+            var num = new RomanInt(numeral);
+            num.Value.Should().Be(expected);
+        }
+
         [Fact]
         public void True()
         {
