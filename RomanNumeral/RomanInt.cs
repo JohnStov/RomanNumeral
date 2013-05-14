@@ -1,10 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace RomanNumeral
 {
     public class RomanInt
     {
         private readonly int value;
+
+        private Dictionary<int, string> digits = new Dictionary<int, string>
+        {
+            {100, "C"},
+            { 50, "L"},
+            { 10, "X"},
+            {  5, "V"},
+            {  1, "I"}
+        };
 
         public RomanInt(int value)
         {
@@ -15,6 +25,9 @@ namespace RomanNumeral
         {
             string result = string.Empty;
             int remainder = value;
+
+            while (remainder >= 90)
+                result += NearSignificantValue(100, "C", ref remainder);
 
             while (remainder >= 40)
                 result += NearSignificantValue(50, "L", ref remainder);
