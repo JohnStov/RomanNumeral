@@ -40,6 +40,19 @@ namespace RomanNumeralTest
         [InlineData(3, "III")]
         [InlineData(4, "IV")]
         [InlineData(5, "V")]
+        [InlineData(6, "VI")]
+        [InlineData(9, "IX")]
+        [InlineData(14, "XIV")]
+        [InlineData(19, "XIX")]
+        [InlineData(40, "XL")]
+        [InlineData(49, "XLIX")]
+        [InlineData(50, "L")]
+        [InlineData(60, "LX")]
+        [InlineData(69, "LXIX")]
+        [InlineData(89, "LXXXIX")]
+        [InlineData(90, "XC")]
+        [InlineData(999, "CMXCIX")]
+        [InlineData(2013, "MMXIII")]
         public void RomanToArabic(int expected, string numeral)
         {
             var num = new RomanInt(numeral);
