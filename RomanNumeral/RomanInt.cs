@@ -21,22 +21,41 @@ namespace RomanNumeral
             this.value = value;
         }
 
+        
+        public class NumeralInfo
+        {
+            public NumeralInfo(int value, char digit, int prefixValue, char prefixDigit)
+            {
+                Value = value;
+                Digit = digit;
+                PrefixValue = prefixValue;
+                PrefixDigit = prefixDigit;
+            }
+
+            public int Value { get; private set; }
+            public char Digit { get; private set; }
+            public int PrefixValue { get; private set; }
+            public char PrefixDigit { get; private set; }
+        }
+
+        private static readonly NumeralInfo[] Numerals =
+        {
+            new NumeralInfo(100, 'C', 10, 'X'),             
+            new NumeralInfo( 50, 'L', 10, 'X'),             
+            new NumeralInfo( 10, 'X',  1, 'I'),             
+            new NumeralInfo(  5, 'V',  1, 'I'),             
+        };
+        
         public override string ToString()
         {
             string result = string.Empty;
             int remainder = value;
 
-            while (remainder >= 90)
-                result += NearSignificantValue(100, "C", ref remainder);
-
-            while (remainder >= 40)
-                result += NearSignificantValue(50, "L", ref remainder);
-
-            while (remainder > 8)
-                result += NearSignificantValue(10, "X", ref remainder);
-
-            if (remainder > 3)
-                result += NearSignificantValue(5, "V", ref remainder);
+            foreach (var numeral in Numerals)
+            {
+                while (remainder >= numeral.Value - numeral.PrefixValue)
+                    result += NearSignificantValue(numeral, ref remainder);
+            }
 
             while (remainder > 0)
                 result += AppendI(ref remainder);
@@ -50,27 +69,20 @@ namespace RomanNumeral
             return "I";
         }
 
-        private string NearSignificantValue(int value, string numeral, ref int remainder)
+        private string NearSignificantValue(NumeralInfo numeral, ref int remainder)
         {
             string result;
-            if (numeral == "X" || numeral == "V")
+            if (remainder >= numeral.Value)
             {
-                result = remainder == value - 1 ? "I" + numeral : numeral;
-                remainder = Math.Max(remainder - value, 0);
+                result = numeral.Digit.ToString();
+                remainder -= numeral.Value;
             }
             else
             {
-                if (remainder >= value)
-                {
-                    result = numeral;
-                    remainder = remainder - value;
-                }
-                else
-                {
-                    result = "X" + numeral;
-                    remainder = remainder - value + 10;
-                }
+                result = string.Format("{0}{1}", numeral.PrefixDigit, numeral.Digit);
+                remainder -= numeral.Value - numeral.PrefixValue;
             }
+
             return result;
         }
 
